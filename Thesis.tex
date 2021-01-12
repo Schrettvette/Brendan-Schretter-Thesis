@@ -13,6 +13,28 @@
 \usepackage{url}
 \usepackage{tikz}
 \usepackage{pgf}
+\usepackage{tocloft}     % Use tocloft to introduce single spacing on long chapter name
+\setlength\cftparskip{-2pt}
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\renewcommand\bibname{References}
+\renewcommand\cftchapafterpnum{\vskip\baselineskip}  
+\renewcommand\cftsecafterpnum{\vskip\baselineskip \normalfont}
+\renewcommand\cftsubsecafterpnum{\vskip\baselineskip \normalfont}
+\renewcommand\cftsubsubsecafterpnum{\vskip\baselineskip \normalsize}
+\renewcommand\cftfigafterpnum{\vskip\baselineskip}
+\renewcommand\cfttabafterpnum{\vskip\baselineskip}
+\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}} % for parts
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+\usepackage{times}
+\usepackage[a4paper,left=1in,right=1in,top=1.15in,bottom=1in]{geometry}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\usepackage{titlesec}
+\titleformat{\chapter}[display] %[display] puts the title chapter on a separate line
+  {\singlespace\center}{\chaptertitlename\ \thechapter}{12pt}{\center} % Defines the Chapter title style and size
+\titleformat*{\section} {\normalfont\fontsize{12}{12}}  % Added this line to describe section title,numbering and font styles
+\titleformat*{\subsection} {\normalfont\fontsize{12}{12}}% Added this line to describe subsection title,numbering and font styles
+\titleformat*{\subsubsection} {\normalfont\fontsize{12}{12}}% Added this line to describe subbsection title,numbering and font styles
+
 %%%%%Format rules: Normal margins are 1 in. If you need to print with 1.5in margins, uncomment the line below
 %\oddsidemargin0.5in \textwidth6in
 
@@ -28,27 +50,27 @@
 
 
 % May want theorems numbered by chapter
-\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{theorem}{  \normalfont Theorem} [chapter]
 
 % Put the title, author, and date in. 
 \title{Sample Thesis Title Goes Here}
-\author{Brendan Schretter} 
-\date{May 10, 2021} %date of graduation
-\copyrightyear{2021} %copyright year
+\author{Christopher Wilson} 
+\date{May 10, 2010} %date of graduation
+\copyrightyear{2010} %copyright year
 
 \keywords{keyword1, keyword2, keyword3}
 
 % Put the Thesis Adviser here. 
-\adviser{David Bevly}
+\adviser{Thaddeus Roppel}
 
 
 % Put the committee here (including the adviser), one \professor for each. 
 % The advisor must be first, and the dean of the graduate school must be last.
-\professor{David Bevly, Chair, Bill and Lana McNair Professor of Mechanical Engineering}
+\professor{Thaddeus Roppel, Chair, Associate Professor of Electrical and Computer Engineering}
 
-\professor{Scott Martin, Assistant Research Professor of Mechanical Engineering}
+\professor{Prathima Agrawal, Ginn Distinguished Professor of Electrical and Computer Engineering}
 
-\professor{Chad Rose, Assistant Professor of Mechanical Engineering}
+\professor{John Hung, Professor of Electrical and Computer Engineering}
 
 \begin{document}
 
@@ -64,9 +86,31 @@ Place the text of the abstract here. Headings come automatically.
 Put text of the acknowledgments here.
 \end{acknowledgments}
 
-\tableofcontents
+\begin{singlespace}
+
+\begin{center} 
+\renewcommand{\cftchapfont}{}
+\renewcommand{\cftchappagefont}{}
+\renewcommand{\cfttoctitlefont}{\normalsize}% Remove \bfseries from ToC title
+\renewcommand{\cftsecfont }{\normalsize}% Remove \bfseries from section titles in ToC
+\renewcommand{\cftsecpagefont}{\normalsize}% Remove \bfseries from section titles' page in ToC
+\tableofcontents 
+\newpage
+\renewcommand{\cftchapfont}{}
+\renewcommand{\cftchappagefont}{}
+\renewcommand{\cftloftitlefont}{\normalsize}% Remove \bfseries from lof title
+\renewcommand{\cftsecfont}{\normalsize}% Remove \bfseries from section titles in lof
+\renewcommand{\cftsecpagefont}{\normalsize}% Remove \bfseries from section titles' page in lof
 \listoffigures
+\newpage
+\renewcommand{\cftchapfont}{}
+\renewcommand{\cftchappagefont}{}
+\renewcommand{\cftlottitlefont}{\normalsize}% Remove \bfseries from lot title
+\renewcommand{\cftsecfont}{\normalsize}% Remove \bfseries from section titles in lof
+\renewcommand{\cftsecpagefont}{\normalsize}% Remove \bfseries from section titles' page in lof
 \listoftables
+\end{center}
+\end{singlespace}
 
 \printnomenclature[0.5in] %used for the List of Abbreviations
 \end{romanpages}        % All done with roman-numbered pages
@@ -74,10 +118,9 @@ Put text of the acknowledgments here.
 
 \normalem       % Make italics the default for \em
 
-
-\chapter{This is the Title of the\\ First Chapter}  % Use \\ for long titles 
-
-This is a sample document for the Auburn \nomenclature{Auburn}{Auburn University} \LaTeX{} style-files known
+ \chapter { This is the Title of the First Chapter-This is a super long title of a Chapter, testing the line wrap and move over to next line.}  % Use \\ for long titles  
+\vspace{-1cm} %Use when chapter name is long -reduce distance between title and chapter text
+ This is a sample document for the Auburn \nomenclature{Auburn}{Auburn University} \LaTeX{} style-files known
 as {\tt aums} (for Master's papers) and {\tt auphd} (for Ph.D.'s).
 The appendix contains some of the history of this project, including
 contact information for the authors. 
@@ -91,10 +134,10 @@ Most users will need either Lamport's book \cite{lamport} or Hahn's book
 \cite{hahn}.
 
 If you do not need the List of Abbreviations\nomenclature{LoA}{List of Abbreviations}, comment the nomencl package and associated nomenclature commands. 
-\begin{theorem} This is an example theorem.
+\begin{theorem}  \normalfont This is an example theorem.
 \end{theorem}
 
-\section{This is an example of a section heading}
+\section { \normalfont This is an example of a section heading}
 
 This is some text which follows the section heading. You can find the data in Table \ref{tab:results}.
 \begin{figure}
@@ -109,7 +152,7 @@ This is some text which follows the section heading. You can find the data in Ta
       \put(3.8,.5){\circle{0.6}}
     \end{picture}
   \end{center}
- \caption{Hollow circles 1}\label{HollowCircles}
+ \caption{Hollow circles}\label{HollowCircles}
 \end{figure}
 
 \begin{figure}
@@ -145,7 +188,7 @@ Heading 1 & \multicolumn{1}{|c}{Heading 2} & \multicolumn{1}{c}{Heading 3} & \mu
 \end{table}
 
 
-\subsection{This is a subsection heading}
+\subsection{ \normalfont This is a subsection heading}
 
 Text after the subsection. And we have a figure, Figure \ref{HollowCircles}.
 
@@ -270,3 +313,4 @@ departments.
 \end{singlespace}
 
 \end{document}
+
